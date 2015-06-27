@@ -1,0 +1,22 @@
+{
+  "name": "klla",
+  "version": "0.0.0",
+  "description": "Something",
+  "main": "hello_world.coffee",
+  "dependencies": {
+    "express": "~4.13.0",
+    "jade": "^1.11.0",
+    "pg": "^4.4.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "coffee hello_world.coffee"
+  },
+  "repository": "http://github.com/",
+  "author": "Parker Young",
+  "license": "CC-BY-NC-ND-4.0",
+  "readme": "Nothing"
+}
