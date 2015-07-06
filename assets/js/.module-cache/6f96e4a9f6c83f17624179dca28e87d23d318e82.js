@@ -1,4 +1,4 @@
-var Index = React.createClass({
+var Index = React.createClass({displayName: "Index",
   getInitialState: function (){
     return { grievances:[] }
   },
@@ -18,13 +18,13 @@ var Index = React.createClass({
   },
 
   render: function(){
-    return(<GrievanceIndex grievances={this.state.grievances} />)
+    return(React.createElement(GrievanceIndex, {grievances: this.props.grievances}))
   }
 });
 
 $(document).ready(function($) {
   React.render(
-    <Index url="/grievances"/>,
+    React.createElement(Index, {url: "/grievances"}),
     document.getElementById('index')
   );
 });

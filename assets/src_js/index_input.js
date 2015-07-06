@@ -20,10 +20,5 @@ $(document).ready(function($) {
     <IndexInput />,
     document.getElementById('indexInput')
   );
-
-  var socket = io.connect()
-  socket.on("New Grievance", function(data) {
-    console.log(data);
-  })
 });
 
