@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "parkeryoung",
+    "password": null,
+    "database": "klla",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "parkeryoung",
+    "password": null,
+    "database": "klla",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "parkeryoung",
+    "password": null,
+    "database": "klla",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
