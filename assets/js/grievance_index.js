@@ -6,7 +6,7 @@ var GrievanceIndex = React.createClass({displayName: "GrievanceIndex",
   render: function(){
     grievances = this.props.grievances.map(function(grievance){
       return (
-        React.createElement(Grievance, {text: grievance.text})
+        React.createElement(Grievance, {text: grievance.text, id: grievance.id, up: grievance.up, down: grievance.down})
       );
     });
     return (

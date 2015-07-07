@@ -26,14 +26,15 @@ app.post '/grievances', (req, res) ->
 
 app.get '/grievances', (req, res) ->
   models.Grievance.findAll().then (grievances) ->
-    res.json grievances.map (grievance) -> grievance.toJSON()
+    res.json grievances.map (grievance) ->
+      grievance.toJSON()
 
 io.on 'connection', (socket) ->
   console.log 'a user connected'
   socket.on 'disconnect', ->
     console.log 'a user disconnected'
-  socket.on 'New Grievance', (json) ->
-    console.log("hello", json)
+  socket.on 'vote', (direction) ->
+    console.log(direction)
 
 server = http.listen 3000, ->
 

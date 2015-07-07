@@ -12,16 +12,6 @@ var Index = React.createClass({displayName: "Index",
     return(React.createElement(GrievanceIndex, {grievances: this.state.grievances}))
   },
 
-  bindSocket: function(){
-    socket = io.connect();
-    parent = this
-    socket.on("New Grievance", function(data) {
-      state = parent.state
-      state.grievances.push(data);
-      parent.setState(data);
-    });
-  },
-
   loadViaAjax: function() {
     $.ajax({
       url: this.props.url,
@@ -33,6 +23,16 @@ var Index = React.createClass({displayName: "Index",
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
+    });
+  },
+
+  bindSocket: function(){
+    socket = io.connect();
+    parent = this
+    socket.on("New Grievance", function(data) {
+      state = parent.state
+      state.grievances.push(data);
+      parent.setState(data);
     });
   }
 });
