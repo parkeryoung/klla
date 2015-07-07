@@ -4,6 +4,25 @@ var Index = React.createClass({displayName: "Index",
   },
 
   componentDidMount: function() {
+    this.loadViaAjax();
+    this.bindSocket();
+  },
+
+  render: function(){
+    return(React.createElement(GrievanceIndex, {grievances: this.state.grievances}))
+  },
+
+  bindSocket: function(){
+    socket = io.connect();
+    parent = this
+    socket.on("New Grievance", function(data) {
+      state = parent.state
+      state.grievances.push(data);
+      parent.setState(data);
+    });
+  },
+
+  loadViaAjax: function() {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -15,10 +34,6 @@ var Index = React.createClass({displayName: "Index",
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
-  },
-
-  render: function(){
-    return(React.createElement(GrievanceIndex, {grievances: this.state.grievances}))
   }
 });
 
