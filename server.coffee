@@ -25,7 +25,7 @@ app.post '/grievances', (req, res) ->
     res.json(result)
 
 app.get '/grievances', (req, res) ->
-  models.Grievance.findAll().then (grievances) ->
+  models.Grievance.findAll({order: ["text"]}).then (grievances) ->
     res.json grievances.map (grievance) ->
       grievance.toJSON()
 
@@ -33,8 +33,18 @@ io.on 'connection', (socket) ->
   console.log 'a user connected'
   socket.on 'disconnect', ->
     console.log 'a user disconnected'
-  socket.on 'vote', (direction) ->
-    console.log(direction)
+  socket.on 'vote', (grievance) ->
+    models.Grievance.update(
+      grievance["attributes"],
+      where: {
+        id: grievance["id"]
+      }
+    );
+    grievanceIO = io.of("/"+grievance["id"])
+    console.log(grievanceIO);
+    grievanceIO.on 'connection', (socket) ->
+      console.log('someone connected')
+    grievanceIO.emit("clientVoteUpdate", grievance)
 
 server = http.listen 3000, ->
 

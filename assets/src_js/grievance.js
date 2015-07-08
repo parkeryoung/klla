@@ -1,36 +1,45 @@
 var Grievance = React.createClass({
+  getInitialState: function() {
+    console.log(this.props);
+    return(this.props);
+  },
 
   componentDidMount: function() {
-    this.arrows();
     this.bindSocket();
   },
 
   bindSocket: function() {
-    socket = io.connect();
+    socket = io.connect("/"+this.props.id);
+    console.log(socket);
+    self = this
+    socket.on("clientVoteUpdate", function(data) {
+      console.log(this, socket);
+      self.setState(data["attributes"]);
+    });
   },
 
-  arrows: function() {
-    self = this
-    $(this.getDOMNode()).find(".up").on("click", function(e){
-      socket = io.connect();
-      console.log(self);
-      socket.emit("vote", { up: self.props.up + 1, id: self.props.id })
-    });
+  upVote: function() {
+    socket = io.connect();
+    state = { up: this.state.up + 1 };
+    this.setState(state);
+    console.log(state);
+    socket.emit("vote", { id: this.props.id, attributes: state })
+  },
 
-    self = this
-    $(this.getDOMNode()).find(".down").on("click", function(e){
-      socket = io.connect();
-      socket.emit("vote", { down: self.props.down + 1, id: self.props.id })
-    });
+  downVote: function() {
+    socket = io.connect();
+    state = { down: this.state.down + 1 };
+    this.setState(state);
+    console.log(state);
+    socket.emit("vote", { id: this.props.id, attributes: state })
   },
 
   render: function(){
     return (
       <div>
-        <p className="up">Up</p>
-        {this.props.up}
-        <p className="down">Down</p>
-        {this.props.down}
+        <p className="up" onClick={this.upVote}>Up</p>
+        { this.state.up - this.state.down }
+        <p className="down" onClick={this.downVote}>Down</p>
         <p>
           {this.props.text}
         </p>
